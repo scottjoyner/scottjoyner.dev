@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Info</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<p id=ipText></p>
+<p id=hostnameText></p>
+<p id=cityText></p>
+<p id=regionText></p>
+<p id=countryText></p>
+<p id=locText></p>
+<p id=orgText></p>
+<p id=postalText></p>
+<p id=timezoneText></p>
+
+<script>
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', "https://ipinfo.io/json", true);
+  xhr.send();
+
+  xhr.onreadystatechange = processRequest;
+  function processRequest(e) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          let response = JSON.parse(xhr.responseText);
+          document.querySelector("#ipText").innerHTML = response.ip;
+          document.querySelector("#hostnameText").innerHTML = response.hostname;
+          document.querySelector("#cityText").innerHTML = response.city;
+          document.querySelector("#regionText").innerHTML = response.region;
+          document.querySelector("#countryText").innerHTML = response.country;
+          document.querySelector("#locText").innerHTML = response.loc;
+          document.querySelector("#orgText").innerHTML = response.org;
+          document.querySelector("#postalText").innerHTML = response.postal;
+          document.querySelector("#timezoneText").innerHTML = response.timezone;
+      }
+  }
+</script>
+</body>
+
+</html>
