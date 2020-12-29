@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <h1>Good Scott Joyner</h1>
+
 <p id=ipText></p>
 <p id=hostnameText></p>
 <p id=cityText></p>
@@ -35,7 +37,41 @@
           document.querySelector("#postalText").innerHTML = response.postal;
           document.querySelector("#timezoneText").innerHTML = response.timezone;
       }
+      xhr.open('POST', "https://www.scottjoyner.dev/v1/graphql")
+    }
+</script>
+
+<script>
+setTimeout(function(){
+  let ip = document.querySelector("#ipText").value;
+  let hostname = document.querySelector("#hostnameText").value;
+  let city = document.querySelector("#cityText").value;
+  let region = document.querySelector("#regionText").value;
+  let country = document.querySelector("#countryText").value;
+  let loc = document.querySelector("#locText").value;
+  let org = document.querySelector("#orgText").value;
+  let postal = document.querySelector("#postalText").value;
+  let timezone = document.querySelector("#timezoneText").value;
+  var data = JSON.stringify({
+  query: "mutation MyMutation {\n  insert_trafficLog_one(object: {ip: \"69.209.119.170\", hostname: \"69-209-119-170.lightspeed.rlghnc.sbcglobal.net\", city: \"Raleigh\", region: \"North Carolina\", country: \"US\", loc: \"35.7721,-78.6386\", org: \"AS7018 AT&T Services, Inc.\", postal: \"27697\", timezone: \"America/New_York\"}) {\n    id\n    visitorNumber\n    created_at\n  }\n}\n",
+  variables: {ip, hostname, city, region, country, loc, org, postal,}
+});
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
   }
+});
+
+xhr.open("POST", "https://www.scottjoyner.dev/v1/graphql");
+xhr.setRequestHeader("x-hasura-admin-secret", "kipnerter");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.send(data);
+}, 2000);
 </script>
 </body>
 
